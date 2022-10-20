@@ -12,10 +12,13 @@ def splitArgv(argv):
     if len(argv) != 2:
         logging.critical("Not the correct number of arguments")
         raise Exception("Not the correct number of arguments")
+    else:
+        return {"filename": argv[1]}
 
 def main(argv):
     logging.info("Main function called")
-    splitArgv(argv)
+    splitArguments = splitArgv(argv)
+    print(splitArguments)
 
 if __name__ == '__main__':
     print("User growth calculator")
