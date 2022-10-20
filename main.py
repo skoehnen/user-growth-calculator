@@ -18,4 +18,3 @@ if __name__ == '__main__':
     # Read input file-name from command parameter
     inputFile = sys.argv[1]
     logging.info(f"argv: {sys.argv}")
-    print(inputFile)
