@@ -6,6 +6,9 @@ logging.basicConfig(level=logging.INFO)
 
 def read_csv_file(fileName):
     logging.info("Read csv function called")
+    logging.info(f"Reading from {fileName}")
+
+    return pandas.read_csv(fileName)
 
 def splitArgv(argv):
     logging.info("splitArgv function called")
@@ -19,7 +22,8 @@ def main(argv):
     logging.info("Main function called")
     splitArguments = splitArgv(argv)
     print(splitArguments)
-    read_csv_file(splitArguments["filename"])
+    data = read_csv_file(splitArguments["filename"])
+    print(data)
 
 if __name__ == '__main__':
     print("User growth calculator")
