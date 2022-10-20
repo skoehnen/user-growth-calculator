@@ -1,1 +1,2 @@
-print("User growth calculator")
+if __name__ == '__main__':
+    print("User growth calculator")
