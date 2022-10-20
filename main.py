@@ -1,4 +1,5 @@
 import sys
+import pandas
 
 if __name__ == '__main__':
     print("User growth calculator")
