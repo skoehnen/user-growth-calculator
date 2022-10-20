@@ -2,6 +2,8 @@ import sys
 import pandas
 import logging
 
+logging.basicConfig(level=logging.INFO)
+
 def read_csv_file(fileName):
     print("Read csv function")
 
