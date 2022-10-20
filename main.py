@@ -5,7 +5,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 def read_csv_file(fileName):
-    print("Read csv function")
+    logging.info("Read csv function called")
 
 if __name__ == '__main__':
     print("User growth calculator")
