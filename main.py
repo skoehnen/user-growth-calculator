@@ -19,6 +19,7 @@ def main(argv):
     logging.info("Main function called")
     splitArguments = splitArgv(argv)
     print(splitArguments)
+    read_csv_file(splitArguments["filename"])
 
 if __name__ == '__main__':
     print("User growth calculator")
