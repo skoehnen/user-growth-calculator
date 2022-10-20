@@ -11,4 +11,5 @@ if __name__ == '__main__':
     print("User growth calculator")
     # Read input file-name from command parameter
     inputFile = sys.argv[1]
+    logging.info(f"Input file: {inputFile}")
     print(inputFile)
