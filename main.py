@@ -33,15 +33,12 @@ def splitArgv(argv):
 def main(argv):
     logging.info("Main function called")
     splitArguments = splitArgv(argv)
-    print(splitArguments)
     data = read_csv_file(splitArguments["filename"])
-    print(data)
 
     start_date_range = getDateRange(getStartDate(data), getEndDate(data))
 
     for i in zip(start_date_range[:-1], start_date_range[1:]):
-        filtered_df = data.loc[(data['Date'] >= '2020-04-01')
-                     & (data['Date'] < '2020-05-01')]
+        filtered_df = data.loc[(data['Date'] >= i[0]) & (data['Date'] < i[1])]
         print(len(filtered_df))
 
 
