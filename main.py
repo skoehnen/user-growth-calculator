@@ -7,20 +7,25 @@ from dateutil.relativedelta import *
 
 logging.basicConfig(level=logging.INFO)
 
+
 def getStartDate(data):
     return data['Date'].loc[data.index[0]]
+
 
 def getEndDate(data):
     return data['Date'].loc[data.index[-1]]
 
+
 def getDateRange(startDate, endDate):
     return pandas.date_range(start = startDate, end = endDate + relativedelta(months=+1), freq ='MS')
+
 
 def read_csv_file(fileName):
     logging.info("Read csv function called")
     logging.info(f"Reading from {fileName}")
 
     return pandas.read_csv(fileName, parse_dates=[0], sep=";")
+
 
 def splitArgv(argv):
     logging.info("splitArgv function called")
@@ -29,6 +34,7 @@ def splitArgv(argv):
         raise Exception("Not the correct number of arguments")
     else:
         return {"filename": argv[1]}
+
 
 def main(argv):
     logging.info("Main function called")
