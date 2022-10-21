@@ -39,7 +39,10 @@ def main(argv):
 
     start_date_range = getDateRange(getStartDate(data), getEndDate(data))
 
-    print(start_date_range)
+    print(zip(start_date_range, start_date_range))
+
+    for i in zip(start_date_range, start_date_range):
+        print(i)
 
     filtered_df = data.loc[(data['Date'] >= '2020-04-01')
                      & (data['Date'] < '2020-05-01')]
