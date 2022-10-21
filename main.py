@@ -44,8 +44,6 @@ def main(argv):
 
     print(start_date_range)
 
-    startDate = startDate+relativedelta(months=+1)
-
     example_date_string="20220929"
     #obj=datetime.datetime.strptime(string, format)
     #data[foo..str.startswith('f')]
