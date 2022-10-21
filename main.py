@@ -41,9 +41,6 @@ def main(argv):
 
     print(start_date_range)
 
-    example_date_string="20220929"
-    #obj=datetime.datetime.strptime(string, format)
-    #data[foo..str.startswith('f')]
     filtered_df = data.loc[(data['Date'] >= '2020-04-01')
                      & (data['Date'] < '2020-05-01')]
 
