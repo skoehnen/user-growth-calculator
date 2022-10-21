@@ -37,9 +37,6 @@ def main(argv):
     data = read_csv_file(splitArguments["filename"])
     print(data)
 
-    startDate = getStartDate(data)
-    endDate = getEndDate(data)
-
     start_date_range = getDateRange(getStartDate(data), getEndDate(data))
 
     print(start_date_range)
