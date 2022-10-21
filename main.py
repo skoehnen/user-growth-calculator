@@ -14,7 +14,7 @@ def getEndDate(data):
     return data['Date'].loc[data.index[-1]]
 
 def getDateRange(startDate, endDate):
-    return pandas.date_range(start = startDate, end = endDate, freq ='MS')
+    return pandas.date_range(start = startDate, end = endDate + relativedelta(months=+1), freq ='MS')
 
 def read_csv_file(fileName):
     logging.info("Read csv function called")
