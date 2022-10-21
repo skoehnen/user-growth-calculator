@@ -42,7 +42,6 @@ def calculateMonthlyUsers(data, dateRange):
 
     for i in zip(dateRange[:-1], dateRange[1:]):
         filtered_df = data.loc[(data['Date'] >= i[0]) & (data['Date'] < i[1])]
-        print(f"{i[0].strftime('%Y-%m')}: {len(filtered_df)}")
         monthList.append(i[0].strftime('%Y-%m'))
         userCountPerMonth.append(len(filtered_df))
 
