@@ -10,6 +10,9 @@ logging.basicConfig(level=logging.INFO)
 def getStartDate(data):
     return data['Date'].loc[data.index[0]]
 
+def getEndDate(data):
+    return data['Date'].loc[data.index[-1]]
+
 def getDateRange(startDate, endDate):
     return pandas.date_range(start = startDate, end = endDate, freq ='MS')
 
@@ -35,7 +38,7 @@ def main(argv):
     print(data)
 
     startDate = getStartDate(data)
-    endDate = data['Date'].loc[data.index[-1]]
+    endDate = getEndDate(data)
     
     print(f"startDate: {startDate}")
     print(f"endDate: {endDate}")
