@@ -40,9 +40,6 @@ def main(argv):
     startDate = getStartDate(data)
     endDate = getEndDate(data)
     
-    print(f"startDate: {startDate}")
-    print(f"endDate: {endDate}")
-
     start_date_range = getDateRange(startDate, endDate)
 
     print(start_date_range)
