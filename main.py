@@ -52,9 +52,7 @@ def calculateMonthlyUsers(data, dateRange):
     for i in zip(monthList, userCountPerMonth):
         print(i)
 
-    df = pandas.DataFrame(zip(monthList, userCountPerMonth), columns=['Month', 'Number of user'])
-
-    return df
+    return pandas.DataFrame(zip(monthList, userCountPerMonth), columns=['Month', 'Number of user'])
 
 
 def main(argv):
