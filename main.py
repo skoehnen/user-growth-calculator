@@ -43,12 +43,7 @@ def main(argv):
         filtered_df = data.loc[(data['Date'] >= '2020-04-01')
                      & (data['Date'] < '2020-05-01')]
         print(len(filtered_df))
-            
 
-
-    #print(start_date_range)
-
-    #print(filtered_df)
 
 if __name__ == '__main__':
     print("User growth calculator")
