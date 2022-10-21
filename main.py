@@ -52,14 +52,31 @@ def calculateMonthlyUsers(data, dateRange):
 
 def calculateAverageGrowthRate(data):
     logging.debug(f"calculateAverageGrowthRate function called")
-    n = 1
+    
+    n = 2
+    averageGrowthRates = [0]
 
-    for i in (data['Number of users'])[1:]:
-        logging.debug(f"Past value: {data['Number of users'][0]}")
-        logging.debug(f"Present value: {i}")
+    for present in (data['Number of users'])[1:]:
+        past = data['Number of users'][0]
+        logging.debug(f"Past value: {past}")
+        logging.debug(f"Present value: {present}")
         logging.debug(f"n value: {n}")
-        
+
+        averageGrowthRate = (((float(present) / float(past)) ** (1.0 / float(n))) - 1.0) * 100.0
+
+        averageGrowthRates.append(averageGrowthRate)
+
+        print(averageGrowthRate)
+
         n += 1
+
+    print(averageGrowthRates)
+
+    data['Average Growth Rates'] = averageGrowthRates
+
+    print(data)
+
+    return data
 
 def main(argv):
     logging.debug("Main function called")
@@ -68,9 +85,9 @@ def main(argv):
 
     usersPerMonth = calculateMonthlyUsers(data, getDateRange(getStartDate(data), getEndDate(data)))
 
-    calculateAverageGrowthRate(usersPerMonth)
+    averageGrowthRates = calculateAverageGrowthRate(usersPerMonth)
 
-    usersPerMonth.to_csv("test.csv")
+    averageGrowthRates.to_csv("test.csv")
 
 if __name__ == '__main__':
     print("User growth calculator")
