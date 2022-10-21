@@ -39,8 +39,6 @@ def main(argv):
 
     start_date_range = getDateRange(getStartDate(data), getEndDate(data))
 
-    print(zip(start_date_range, start_date_range))
-
     for i in zip(start_date_range, start_date_range):
         print(i)
 
