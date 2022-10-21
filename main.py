@@ -49,7 +49,7 @@ def calculateMonthlyUsers(data, dateRange):
 
 
 def main(argv):
-    logging.info("Main function called")
+    logging.debug("Main function called")
     splitArguments = splitArgv(argv)
     data = read_csv_file(splitArguments["filename"])
 
