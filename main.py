@@ -47,7 +47,7 @@ def calculateMonthlyUsers(data, dateRange):
         monthList.append(i[0].strftime('%Y-%m'))
         userCountPerMonth.append(len(filtered_df))
 
-    return pandas.DataFrame(zip(monthList, userCountPerMonth), columns=['Month', 'Number of user'])
+    return pandas.DataFrame(zip(monthList, userCountPerMonth), columns=['Month', 'Number of users'])
 
 
 def main(argv):
