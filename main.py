@@ -5,7 +5,20 @@ import datetime
 
 from dateutil.relativedelta import *
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
+
+
+def getStartDate(data):
+    return data['Date'].loc[data.index[0]]
+
+
+def getEndDate(data):
+    return data['Date'].loc[data.index[-1]]
+
+
+def getDateRange(startDate, endDate):
+    return pandas.date_range(start = startDate, end = endDate + relativedelta(months=+1), freq ='MS')
+
 
 def read_csv_file(fileName):
     logging.info("Read csv function called")
@@ -13,38 +26,68 @@ def read_csv_file(fileName):
 
     return pandas.read_csv(fileName, parse_dates=[0], sep=";")
 
+
 def splitArgv(argv):
     logging.info("splitArgv function called")
-    if len(argv) != 2:
+    if len(argv) != 3:
         logging.critical("Not the correct number of arguments")
         raise Exception("Not the correct number of arguments")
     else:
-        return {"filename": argv[1]}
+        return {"filename": argv[1], "outFilename": argv[2]}
 
-def main(argv):
-    logging.info("Main function called")
-    splitArguments = splitArgv(argv)
-    print(splitArguments)
-    data = read_csv_file(splitArguments["filename"])
+
+def calculateMonthlyUsers(data, dateRange):
+    logging.debug("calculateMonthlyUsers function called")
+
+    monthList = []
+    userCountPerMonth = []
+
+    for i in zip(dateRange[:-1], dateRange[1:]):
+        filtered_df = data.loc[(data['Date'] >= i[0]) & (data['Date'] < i[1])]
+        monthList.append(i[0].strftime('%Y-%m'))
+        userCountPerMonth.append(len(filtered_df))
+
+    return pandas.DataFrame(zip(monthList, userCountPerMonth), columns=['Month', 'Number of users'])
+
+
+def calculateAverageGrowthRate(data):
+    logging.debug(f"calculateAverageGrowthRate function called")
+    
+    n = 2
+    averageGrowthRates = [0]
+
+    for present in (data['Number of users'])[1:]:
+        past = data['Number of users'][0]
+        logging.debug(f"Past value: {past}")
+        logging.debug(f"Present value: {present}")
+        logging.debug(f"n value: {n}")
+
+        averageGrowthRate = (((float(present) / float(past)) ** (1.0 / float(n))) - 1.0) * 100.0
+
+        averageGrowthRates.append(averageGrowthRate)
+
+        print(averageGrowthRate)
+
+        n += 1
+
+    print(averageGrowthRates)
+
+    data['Average Growth Rates'] = averageGrowthRates
+
     print(data)
 
-    startDate = data['Date'].loc[data.index[0]]
-    endDate = data['Date'].loc[data.index[-1]]
-    
-    print(f"startDate: {startDate}")
-    print(f"endDate: {endDate}")
+    return data
 
-    startDate = startDate+relativedelta(months=+1)
-    print(startDate)
+def main(argv):
+    logging.debug("Main function called")
+    splitArguments = splitArgv(argv)
+    data = read_csv_file(splitArguments["filename"])
 
-    example_date_string="20220929"
-    #obj=datetime.datetime.strptime(string, format)
-    #data[foo..str.startswith('f')]
-    filtered_df = data.loc[(data['Date'] >= '2020-04-01')
-                     & (data['Date'] < '2020-05-01')]
+    usersPerMonth = calculateMonthlyUsers(data, getDateRange(getStartDate(data), getEndDate(data)))
 
-    #print(filtered_df)
-    print(len(filtered_df))
+    averageGrowthRates = calculateAverageGrowthRate(usersPerMonth)
+
+    averageGrowthRates.to_csv(splitArguments["outFilename"])
 
 if __name__ == '__main__':
     print("User growth calculator")
