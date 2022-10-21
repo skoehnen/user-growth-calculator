@@ -5,7 +5,7 @@ import datetime
 
 from dateutil.relativedelta import *
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 
 def getStartDate(data):
@@ -50,12 +50,25 @@ def calculateMonthlyUsers(data, dateRange):
     return pandas.DataFrame(zip(monthList, userCountPerMonth), columns=['Month', 'Number of users'])
 
 
+def calculateAverageGrowthRate(data):
+    logging.debug(f"calculateAverageGrowthRate function called")
+    n = 1
+
+    for i in (data['Number of users'])[1:]:
+        logging.debug(f"Past value: {data['Number of users'][0]}")
+        logging.debug(f"Present value: {i}")
+        logging.debug(f"n value: {n}")
+        
+        n += 1
+
 def main(argv):
     logging.debug("Main function called")
     splitArguments = splitArgv(argv)
     data = read_csv_file(splitArguments["filename"])
 
     usersPerMonth = calculateMonthlyUsers(data, getDateRange(getStartDate(data), getEndDate(data)))
+
+    calculateAverageGrowthRate(usersPerMonth)
 
     usersPerMonth.to_csv("test.csv")
 
