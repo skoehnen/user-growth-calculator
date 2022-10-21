@@ -7,6 +7,9 @@ from dateutil.relativedelta import *
 
 logging.basicConfig(level=logging.INFO)
 
+def getDateRange(startDate, endDate):
+    return pandas.date_range(start = startDate, end = endDate, freq ='MS')
+
 def read_csv_file(fileName):
     logging.info("Read csv function called")
     logging.info(f"Reading from {fileName}")
@@ -33,6 +36,10 @@ def main(argv):
     
     print(f"startDate: {startDate}")
     print(f"endDate: {endDate}")
+
+    start_date_range = getDateRange(startDate, endDate)
+
+    print(start_date_range)
 
     startDate = startDate+relativedelta(months=+1)
     print(startDate)
