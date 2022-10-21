@@ -29,11 +29,11 @@ def read_csv_file(fileName):
 
 def splitArgv(argv):
     logging.info("splitArgv function called")
-    if len(argv) != 2:
+    if len(argv) != 3:
         logging.critical("Not the correct number of arguments")
         raise Exception("Not the correct number of arguments")
     else:
-        return {"filename": argv[1]}
+        return {"filename": argv[1], "outFilename": argv[2]}
 
 
 def calculateMonthlyUsers(data, dateRange):
@@ -87,7 +87,7 @@ def main(argv):
 
     averageGrowthRates = calculateAverageGrowthRate(usersPerMonth)
 
-    averageGrowthRates.to_csv("test.csv")
+    averageGrowthRates.to_csv(splitArguments["outFilename"])
 
 if __name__ == '__main__':
     print("User growth calculator")
