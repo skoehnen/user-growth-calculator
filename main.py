@@ -36,11 +36,11 @@ def splitArgv(argv):
         return {"filename": argv[1]}
 
 
-def calculateMonthlyUsers(data):
+def calculateMonthlyUsers(data, dateRange):
     monthList = []
     userCountPerMonth = []
 
-    for i in zip(start_date_range[:-1], start_date_range[1:]):
+    for i in zip(dateRange[:-1], dateRange[1:]):
         filtered_df = data.loc[(data['Date'] >= i[0]) & (data['Date'] < i[1])]
         print(f"{i[0].strftime('%Y-%m')}: {len(filtered_df)}")
         monthList.append(i[0].strftime('%Y-%m'))
@@ -55,17 +55,17 @@ def calculateMonthlyUsers(data):
     df = pandas.DataFrame(zip(monthList, userCountPerMonth), columns=['Month', 'Number of user'])
     print(df)
 
+    return df
+
 
 def main(argv):
     logging.info("Main function called")
     splitArguments = splitArgv(argv)
     data = read_csv_file(splitArguments["filename"])
 
-    start_date_range = getDateRange(getStartDate(data), getEndDate(data))
+    usersPerMonth = calculateMonthlyUsers(data, getDateRange(getStartDate(data), getEndDate(data)))
 
-    
-
-    #df.to_csv("test.csv")
+    usersPerMonth.to_csv("test.csv")
 
 if __name__ == '__main__':
     print("User growth calculator")
