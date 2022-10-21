@@ -37,6 +37,8 @@ def splitArgv(argv):
 
 
 def calculateMonthlyUsers(data, dateRange):
+    logging.debug("calculateMonthlyUsers function called")
+
     monthList = []
     userCountPerMonth = []
 
